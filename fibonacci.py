@@ -13,17 +13,15 @@ with tf.Session() as sess:
 a = tf.Variable(1)	#give a initial value to variable
 b = tf.Variable(1)
 c = tf.Variable(1)
-tmp = tf.Variable(1)
 changeA = tf.assign(a,b)
 changeB = tf.assign(b,c)
-tmp = tf.add(a,b)
-changeC = tf.assign(c, tmp)
+changeC = tf.assign(c, tf.add(a,b))
 init_op = tf.initialize_all_variables()
 
 print "Remodeled code:"
 with tf.Session() as sess:
 	sess.run(init_op)
-	for _ in range(4):
+	for _ in range(10):
 		result = sess.run(changeC)
 		print result
 		sess.run(changeA)
